@@ -5,20 +5,9 @@ const kafka = new Kafka({
   brokers: ["localhost:9092"],
 });
 
-const producer = kafka.producer();
-const consumer = kafka.consumer({ groupId: "test-1" });
+const consumer = kafka.consumer({ groupId: "test-1" + Math.random() });
 
 const run = async () => {
-  await producer.connect();
-  await producer.send({
-    topic: "quickstart-events",
-    messages: [
-      {
-        value: "this is me adarsh shukla",
-      },
-    ],
-  });
-
   await consumer.connect();
   await consumer.subscribe({ topic: "quickstart-events", fromBeginning: true });
 
